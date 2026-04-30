@@ -133,8 +133,7 @@ type Page =
   | { name: "shop" }
   | { name: "product"; product: Product }
   | { name: "blog" }
-  | { name: "blogpost"; post: BlogPost }
-  | { name: "checkout"; product: Product; quantity: number };
+  | { name: "blogpost"; post: BlogPost };
 
 // ─── ICONS ───────────────────────────────────────────────────────────────────
 
@@ -206,11 +205,6 @@ const MinusIcon = ({ size = 14 }: { size?: number }) => (
   </svg>
 );
 
-const CheckIcon = ({ size = 56 }: { size?: number }) => (
-  <svg {...svgBase(size)} strokeWidth={2}>
-    <polyline points="20 6 9 17 4 12" />
-  </svg>
-);
 
 // ─── HOOKS ───────────────────────────────────────────────────────────────────
 
@@ -689,15 +683,19 @@ function ProductDetailPage({ product, navigate }: { product: Product; navigate: 
               </div>
             </div>
 
-            <button
-              className="btn-primary btn-block"
-              onClick={() => navigate({ name: "checkout", product, quantity })}
+            <a
+              className="btn-venmo btn-block"
+              href={`https://venmo.com/Minu-Agarwal?txn=pay&note=${encodeURIComponent(product.name + " × " + quantity)}&amount=${product.price * quantity}`}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <span>Buy now — ${product.price * quantity}.00</span>
-              <ArrowUpRight size={16} />
-            </button>
+              <svg width="22" height="22" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M38.5 6C40.1 9.1 40.8 12.3 40.8 16.3C40.8 27.7 31.3 42.3 23.6 42.3C16.2 42.3 14.7 34.5 11.9 25.8C10.6 21.7 9.1 17.3 6 17.3L9.4 14.3C13.7 14.3 17.3 19.5 19.1 25.2C20.3 29 21.3 34.7 23.9 34.7C27.8 34.7 33.5 23.5 33.5 16.1C33.5 11.9 32.4 9.1 30.8 7.1L38.5 6Z" fill="white"/>
+              </svg>
+              <span>Pay ${product.price * quantity}.00 with Venmo</span>
+            </a>
 
-            <p className="product-note">Free shipping · Secure checkout · Made with care</p>
+            <p className="product-note">Free shipping · Pay securely via Venmo · Made with care</p>
           </div>
         </div>
       </section>
@@ -817,145 +815,6 @@ function BlogPostPage({ post, navigate }: { post: BlogPost; navigate: (p: Page) 
   );
 }
 
-// ─── CHECKOUT ────────────────────────────────────────────────────────────────
-
-function CheckoutPage({
-  product,
-  initialQty,
-  navigate,
-}: {
-  product: Product;
-  initialQty: number;
-  navigate: (p: Page) => void;
-}) {
-  const [qty, setQty] = useState(initialQty);
-  const [done, setDone] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const total = product.price * qty;
-
-  if (done) {
-    return (
-      <section className="success">
-        <div className="success-inner">
-          <div className="success-mark">
-            <CheckIcon size={48} />
-          </div>
-          <Eyebrow>/ Order confirmed</Eyebrow>
-          <h1 className="success-title">Order placed.</h1>
-          <p className="success-text">
-            Thank you for buying <strong>{product.name}</strong>. This is a demo — no real payment was processed.
-          </p>
-          <div className="success-actions">
-            <button className="btn-primary" onClick={() => navigate({ name: "shop" })}>
-              <span>Keep shopping</span>
-              <ArrowUpRight size={16} />
-            </button>
-            <button className="btn-ghost" onClick={() => navigate({ name: "landing" })}>
-              Back home
-            </button>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  return (
-    <section className="checkout">
-      <button className="back-link" onClick={() => navigate({ name: "product", product })}>
-        <ArrowLeft size={16} /> Back to product
-      </button>
-
-      <Eyebrow>/ Checkout</Eyebrow>
-      <h1 className="page-title">
-        Complete <em>your order.</em>
-      </h1>
-
-      <div className="checkout-grid">
-        <div className="checkout-form">
-          <div className="form-section">
-            <h2 className="form-h">/ 01 — Details</h2>
-            <div className="form-fields">
-              <input
-                className="field"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Full name"
-              />
-              <input
-                className="field"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email address"
-              />
-              <textarea
-                className="field"
-                placeholder="Shipping address"
-                rows={3}
-              />
-            </div>
-          </div>
-
-          <div className="form-section">
-            <h2 className="form-h">/ 02 — Payment</h2>
-            <div className="card-fake">
-              <div className="card-fake-row">
-                <span>Stripe</span>
-                <span className="card-fake-pill">Secure</span>
-              </div>
-              <div className="card-fake-num">•••• •••• •••• ••••</div>
-              <div className="card-fake-foot">
-                <div><span className="card-fake-l">Expiry</span><span>MM / YY</span></div>
-                <div><span className="card-fake-l">CVV</span><span>•••</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <aside className="checkout-summary">
-          <h2 className="form-h">/ 03 — Summary</h2>
-          <div className="summary-card">
-            <div className="summary-product">
-              <img src={product.image} alt={product.name} />
-              <div className="summary-product-info">
-                <Eyebrow>{product.category}</Eyebrow>
-                <h3>{product.name}</h3>
-                <p className="summary-price">${product.price}.00</p>
-              </div>
-            </div>
-
-            <div className="summary-divider" />
-
-            <div className="summary-row">
-              <span>Qty</span>
-              <div className="qty-stepper compact">
-                <button onClick={() => setQty(Math.max(1, qty - 1))}><MinusIcon /></button>
-                <span>{String(qty).padStart(2, "0")}</span>
-                <button onClick={() => setQty(qty + 1)}><PlusIcon /></button>
-              </div>
-            </div>
-
-            <div className="summary-divider" />
-
-            <div className="summary-totals">
-              <div><span>Subtotal</span><span>${total}.00</span></div>
-              <div><span>Shipping</span><span className="free">Free</span></div>
-              <div className="total"><span>Total</span><span>${total}.00</span></div>
-            </div>
-
-            <button className="btn-primary btn-block" onClick={() => setDone(true)}>
-              <span>Pay ${total}.00 with Stripe</span>
-              <ArrowUpRight size={16} />
-            </button>
-            <p className="summary-note">Secure payment · Demo only — no real charge</p>
-          </div>
-        </aside>
-      </div>
-    </section>
-  );
-}
 
 // ─── FOOTER ──────────────────────────────────────────────────────────────────
 
@@ -986,13 +845,12 @@ function Footer({ navigate }: { navigate: (p: Page) => void }) {
 export default function App() {
   const [page, setPage] = useState<Page>({ name: "landing" });
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
+  const [cartCount] = useState(0);
 
   const navigate = (p: Page) => {
     setPage(p);
     setMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    if (p.name === "checkout") setCartCount((c) => c + 1);
   };
 
   // Re-mount key to trigger page-enter animation
@@ -1009,9 +867,6 @@ export default function App() {
         {page.name === "product" && <ProductDetailPage product={page.product} navigate={navigate} />}
         {page.name === "blog" && <BlogPage navigate={navigate} />}
         {page.name === "blogpost" && <BlogPostPage post={page.post} navigate={navigate} />}
-        {page.name === "checkout" && (
-          <CheckoutPage product={page.product} initialQty={page.quantity} navigate={navigate} />
-        )}
       </main>
     </div>
   );
