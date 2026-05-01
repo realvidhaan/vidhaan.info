@@ -684,15 +684,48 @@ function ProductDetailPage({ product, navigate }: { product: Product; navigate: 
             </div>
 
             <a
-              className="btn-venmo btn-block"
               href={`https://venmo.com/Minu-Agarwal?txn=pay&note=${encodeURIComponent(product.name + " × " + quantity)}&amount=${product.price * quantity}`}
               target="_blank"
               rel="noopener noreferrer"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "10px",
+                width: "100%",
+                padding: "18px 32px",
+                background: "#3D95CE",
+                color: "#fff",
+                fontFamily: "Inter, sans-serif",
+                fontWeight: 700,
+                fontSize: "16px",
+                borderRadius: "9999px",
+                border: "none",
+                cursor: "pointer",
+                textDecoration: "none",
+                boxShadow: "0 4px 16px rgba(61,149,206,0.45)",
+                transition: "all 0.2s ease",
+                marginTop: "12px",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "#2d7ab0";
+                (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 8px 24px rgba(61,149,206,0.55)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "#3D95CE";
+                (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 4px 16px rgba(61,149,206,0.45)";
+              }}
             >
-              <svg width="22" height="22" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M38.5 6C40.1 9.1 40.8 12.3 40.8 16.3C40.8 27.7 31.3 42.3 23.6 42.3C16.2 42.3 14.7 34.5 11.9 25.8C10.6 21.7 9.1 17.3 6 17.3L9.4 14.3C13.7 14.3 17.3 19.5 19.1 25.2C20.3 29 21.3 34.7 23.9 34.7C27.8 34.7 33.5 23.5 33.5 16.1C33.5 11.9 32.4 9.1 30.8 7.1L38.5 6Z" fill="white"/>
+              {/* Venmo logo mark */}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" rx="4" fill="white" fillOpacity="0.2"/>
+                <path d="M19.5 3C20.3 4.6 20.7 6.3 20.7 8.5C20.7 14.6 15.7 22.3 11.8 22.3C8.1 22.3 7.4 17.8 5.9 13C5.2 10.9 4.4 8.6 3 8.6L4.7 7.2C7 7.2 9 9.9 9.9 12.6C10.5 14.5 11 17.3 12.3 17.3C14.3 17.3 17.3 11.8 17.3 7.9C17.3 5.9 16.7 4.5 15.8 3.5L19.5 3Z" fill="white"/>
               </svg>
-              <span>Pay ${product.price * quantity}.00 with Venmo</span>
+              <span style={{ fontFamily: "Inter, sans-serif", fontWeight: 700, color: "#fff", letterSpacing: "0.01em" }}>
+                Pay ${product.price * quantity}.00 with Venmo
+              </span>
             </a>
 
             <p className="product-note">Free shipping · Pay securely via Venmo · Made with care</p>
