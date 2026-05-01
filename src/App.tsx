@@ -192,19 +192,6 @@ const XIcon = ({ size = 22 }: { size?: number }) => (
   </svg>
 );
 
-const PlusIcon = ({ size = 14 }: { size?: number }) => (
-  <svg {...svgBase(size)} strokeWidth={2}>
-    <line x1="12" y1="5" x2="12" y2="19" />
-    <line x1="5" y1="12" x2="19" y2="12" />
-  </svg>
-);
-
-const MinusIcon = ({ size = 14 }: { size?: number }) => (
-  <svg {...svgBase(size)} strokeWidth={2}>
-    <line x1="5" y1="12" x2="19" y2="12" />
-  </svg>
-);
-
 
 // ─── HOOKS ───────────────────────────────────────────────────────────────────
 
@@ -640,7 +627,6 @@ function ShopPage({ navigate }: { navigate: (p: Page) => void }) {
 // ─── PRODUCT DETAIL ──────────────────────────────────────────────────────────
 
 function ProductDetailPage({ product, navigate }: { product: Product; navigate: (p: Page) => void }) {
-  const [quantity, setQuantity] = useState(1);
   const tilt = useTilt();
 
   return (
@@ -674,17 +660,13 @@ function ProductDetailPage({ product, navigate }: { product: Product; navigate: 
               ))}
             </div>
 
-            <div className="qty-row">
-              <span className="qty-label">Qty</span>
-              <div className="qty-stepper">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))}><MinusIcon /></button>
-                <span>{String(quantity).padStart(2, "0")}</span>
-                <button onClick={() => setQuantity(quantity + 1)}><PlusIcon /></button>
-              </div>
+            <div className="one-of-one">
+              <span className="one-of-one-dot" />
+              <span>One of one — only one available</span>
             </div>
 
             <a
-              href={`https://venmo.com/Minu-Agarwal?txn=pay&note=${encodeURIComponent(product.name + " × " + quantity)}&amount=${product.price * quantity}`}
+              href={`https://venmo.com/Minu-Agarwal?txn=pay&note=${encodeURIComponent(product.name)}&amount=${product.price}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -724,7 +706,7 @@ function ProductDetailPage({ product, navigate }: { product: Product; navigate: 
                 <path d="M19.5 3C20.3 4.6 20.7 6.3 20.7 8.5C20.7 14.6 15.7 22.3 11.8 22.3C8.1 22.3 7.4 17.8 5.9 13C5.2 10.9 4.4 8.6 3 8.6L4.7 7.2C7 7.2 9 9.9 9.9 12.6C10.5 14.5 11 17.3 12.3 17.3C14.3 17.3 17.3 11.8 17.3 7.9C17.3 5.9 16.7 4.5 15.8 3.5L19.5 3Z" fill="white"/>
               </svg>
               <span style={{ fontFamily: "Inter, sans-serif", fontWeight: 700, color: "#fff", letterSpacing: "0.01em" }}>
-                Pay ${product.price * quantity}.00 with Venmo
+                Pay ${product.price}.00 with Venmo
               </span>
             </a>
 

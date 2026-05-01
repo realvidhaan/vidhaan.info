@@ -269,6 +269,35 @@ em { font-style: italic; }
 .btn-primary:hover svg { transform: rotate(45deg); }
 .btn-block { display: flex; width: 100%; justify-content: center; }
 
+.btn-venmo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 32px;
+  background: #008CFF;
+  color: #fff;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 20px rgba(0,140,255,0.4);
+}
+.btn-venmo:hover {
+  background: #0077db;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0,140,255,0.5);
+}
+.btn-venmo:active {
+  transform: translateY(0);
+}
+.btn-venmo span { position: relative; z-index: 1; }
+.btn-venmo svg { flex-shrink: 0; }
+
 .btn-ghost {
   display: inline-flex;
   align-items: center;
@@ -938,6 +967,35 @@ em { font-style: italic; }
   align-items: center;
   gap: 16px;
   margin-top: 8px;
+}
+
+.one-of-one {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 9999px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-top: 8px;
+  align-self: flex-start;
+}
+.one-of-one-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 4px rgba(22,163,74,0.2);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(22,163,74,0.2); }
+  50% { box-shadow: 0 0 0 8px rgba(22,163,74,0); }
 }
 .qty-label {
   font-family: var(--mono);
