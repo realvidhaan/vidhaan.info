@@ -104,7 +104,7 @@ const ArrowLeft = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
-const CartIcon = ({ size = 20 }: { size?: number }) => (
+const _CartIcon = ({ size = 20 }: { size?: number }) => (
   <svg {...svgBase(size)}>
     <circle cx="9" cy="21" r="1" />
     <circle cx="20" cy="21" r="1" />
@@ -209,13 +209,11 @@ function Eyebrow({ children }: { children: ReactNode }) {
 function Nav({
   page,
   navigate,
-  cartCount,
   menuOpen,
   setMenuOpen,
 }: {
   page: Page;
   navigate: (p: Page) => void;
-  cartCount: number;
   menuOpen: boolean;
   setMenuOpen: (v: boolean) => void;
 }) {
@@ -249,14 +247,7 @@ function Nav({
         </div>
 
         <div className="nav-actions">
-          <button
-            onClick={() => navigate({ name: "shop" })}
-            className="nav-cart"
-            aria-label="Cart"
-          >
-            <CartIcon size={18} />
-            <span className="nav-cart-count">[{String(cartCount).padStart(2, "0")}]</span>
-          </button>
+
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="nav-burger"
@@ -336,11 +327,11 @@ function LandingPage({ navigate }: { navigate: (p: Page) => void }) {
       <section className="hero">
         <div className="hero-grain" />
         <div className="hero-meta">
-          <span>EST. 2026</span>
+          <span>EST. 2024</span>
           <span className="dot">/</span>
           <span>VIDHAAN.INFO</span>
           <span className="dot">/</span>
-          <span>EDITION 001</span>
+          <span>EDITION 002</span>
         </div>
 
         <h1 className="hero-title">
@@ -557,10 +548,7 @@ function ProductDetailPage({ product, navigate }: { product: Product; navigate: 
               ))}
             </div>
 
-            <div className="one-of-one">
-              <span className="one-of-one-dot" />
-              <span>One of one — only one available</span>
-            </div>
+
 
             <a
               href={`https://venmo.com/Minu-Agarwal?txn=pay&note=${encodeURIComponent(product.name)}&amount=${product.price}`}
@@ -653,7 +641,7 @@ function Footer({ navigate }: { navigate: (p: Page) => void }) {
       </div>
       <div className="footer-bottom">
         <span>© 2026 vidhaan.info</span>
-        <span>Edition 001</span>
+        <span>Edition 002</span>
         <span>All works original</span>
       </div>
     </footer>
@@ -665,7 +653,6 @@ function Footer({ navigate }: { navigate: (p: Page) => void }) {
 export default function App() {
   const [page, setPage] = useState<Page>({ name: "landing" });
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cartCount] = useState(0);
 
   const navigate = (p: Page) => {
     setPage(p);
@@ -680,7 +667,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <Nav page={page} navigate={navigate} cartCount={cartCount} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <Nav page={page} navigate={navigate} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <main key={pageKey} className="page-enter">
         {page.name === "landing" && <LandingPage navigate={navigate} />}
         {page.name === "shop" && <ShopPage navigate={navigate} />}
