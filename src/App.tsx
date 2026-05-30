@@ -61,79 +61,13 @@ const products = [
   },
 ];
 
-const blogPosts = [
-  {
-    id: 1,
-    title: "Why I Started Selling My Art",
-    date: "April 15, 2026",
-    readTime: "3 min read",
-    preview:
-      "It all started when my teacher hung my drawing on the classroom wall and everyone kept asking if they could have a copy.",
-    content: `It all started when my teacher hung my drawing on the classroom wall and everyone kept asking if they could have a copy. I realized people actually liked what I made, and that felt really amazing!
-
-I've been drawing and painting since I was about 6. My mom got me a watercolor set for my birthday and I never stopped. At first I just painted random things — flowers, cats, my dog Biscuit. But then I started experimenting with galaxies and abstract art.
-
-Starting this shop was a big step. I had to learn how to take photos of my art (lighting is SO important), figure out pricing, and write descriptions. My older sister helped me set up the website.
-
-The best part? Knowing that something I made with my own hands is hanging on someone else's wall. That makes all the hard work worth it. If you're thinking about selling your art too — just go for it!`,
-  },
-  {
-    id: 2,
-    title: "My Favorite Art Supplies Under $20",
-    date: "April 2, 2026",
-    readTime: "4 min read",
-    preview:
-      "You don't need expensive supplies to make great art. Here are the exact tools I use every day that won't break the bank.",
-    content: `You don't need to spend a fortune on art supplies! Here are my honest favorites that are actually affordable.
-
-**Watercolors:** The Sakura Koi 24-color pocket set is my go-to. It's only about $15 and the colors are vibrant. I've tried fancier sets but this one travels well and has everything I need.
-
-**Pencils:** A basic set of Staedtler colored pencils works great for sketching. For more detailed work, Prismacolor Premier pencils are worth saving up for.
-
-**Paper:** This is where I don't skimp. Cheap paper can ruin even the best paint. I use Strathmore 400 series watercolor paper for paintings and Bristol board for drawings.
-
-**Brushes:** Craft store brushes work fine when you're starting out. Focus more on paper quality than brushes.
-
-The most important supply? Time and practice. No amount of expensive gear beats sitting down and actually making things.`,
-  },
-  {
-    id: 3,
-    title: "Behind the Scenes: How I Make a Greeting Card",
-    date: "March 20, 2026",
-    readTime: "5 min read",
-    preview:
-      "From blank paper to finished card — I'm taking you through my whole process, including the mistakes and happy accidents.",
-    content: `People always ask how long it takes to make a card. The honest answer: anywhere from 30 minutes to 3 hours depending on the design.
-
-**Step 1: Sketch**
-I always start with a light pencil sketch. This is where I figure out composition. I make mistakes here so I don't make them on the final piece.
-
-**Step 2: Ink**
-For designs with linework, I use Micron pens in size 0.3 and 0.5. I let the ink dry for at least 10 minutes before erasing pencil lines — learned that the hard way.
-
-**Step 3: Color**
-Watercolor first, then colored pencil details on top. I work light to dark, adding layers as things dry.
-
-**Step 4: Finishing Touches**
-A white gel pen for highlights, gold paint pen for special details, then I scan or photograph the finished piece.
-
-**Step 5: Print & Cut**
-I print on cardstock, score the fold line carefully, and cut with a craft knife for clean edges.
-
-The whole process is really relaxing once you get into a rhythm.`,
-  },
-];
-
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
 type Product = (typeof products)[0];
-type BlogPost = (typeof blogPosts)[0];
 type Page =
   | { name: "landing" }
   | { name: "shop" }
-  | { name: "product"; product: Product }
-  | { name: "blog" }
-  | { name: "blogpost"; post: BlogPost };
+  | { name: "product"; product: Product };
 
 // ─── ICONS ───────────────────────────────────────────────────────────────────
 
@@ -288,7 +222,6 @@ function Nav({
   const links: { label: string; page: Page }[] = [
     { label: "Index", page: { name: "landing" } },
     { label: "Shop", page: { name: "shop" } },
-    { label: "Journal", page: { name: "blog" } },
   ];
 
   return (
@@ -430,9 +363,6 @@ function LandingPage({ navigate }: { navigate: (p: Page) => void }) {
               <span>Shop the collection</span>
               <ArrowUpRight size={16} />
             </button>
-            <button className="btn-ghost" onClick={() => navigate({ name: "blog" })}>
-              Read the journal
-            </button>
           </div>
         </div>
       </section>
@@ -485,39 +415,6 @@ function LandingPage({ navigate }: { navigate: (p: Page) => void }) {
                 <div className="stat-num">{s.num}</div>
                 <div className="stat-label">{s.label}</div>
               </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* JOURNAL TEASER */}
-      <section className="section">
-        <div className="section-head">
-          <div>
-            <Eyebrow>/ 03 — Journal</Eyebrow>
-            <h2 className="section-title">From the studio.</h2>
-          </div>
-          <Reveal>
-            <button className="btn-ghost" onClick={() => navigate({ name: "blog" })}>
-              All entries <ArrowRight size={14} />
-            </button>
-          </Reveal>
-        </div>
-
-        <div className="journal-list">
-          {blogPosts.map((post, i) => (
-            <Reveal key={post.id} delay={i * 80}>
-              <button className="journal-row" onClick={() => navigate({ name: "blogpost", post })}>
-                <span className="journal-num">№ {String(i + 1).padStart(2, "0")}</span>
-                <div className="journal-content">
-                  <h3 className="journal-title">{post.title}</h3>
-                  <p className="journal-preview">{post.preview}</p>
-                </div>
-                <div className="journal-meta">
-                  <span>{post.date}</span>
-                  <span className="journal-arrow"><ArrowUpRight size={18} /></span>
-                </div>
-              </button>
             </Reveal>
           ))}
         </div>
@@ -739,98 +636,6 @@ function ProductDetailPage({ product, navigate }: { product: Product; navigate: 
   );
 }
 
-// ─── BLOG ────────────────────────────────────────────────────────────────────
-
-function BlogPage({ navigate }: { navigate: (p: Page) => void }) {
-  return (
-    <>
-      <section className="page-head">
-        <div className="hero-grain" />
-        <Eyebrow>/ Journal — Vol. 01</Eyebrow>
-        <h1 className="page-title">
-          Notes from <em>the studio.</em>
-        </h1>
-        <p className="page-sub">Behind-the-scenes, art tips, and stories about growing up as a young artist.</p>
-      </section>
-
-      <section className="section">
-        <div className="journal-big">
-          {blogPosts.map((post, i) => (
-            <Reveal key={post.id} delay={i * 100}>
-              <button
-                className="journal-big-row"
-                onClick={() => navigate({ name: "blogpost", post })}
-              >
-                <span className="journal-big-num">{String(i + 1).padStart(2, "0")}</span>
-                <div className="journal-big-content">
-                  <div className="journal-big-meta">
-                    <span>{post.date}</span>
-                    <span className="dot">·</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                  <h2 className="journal-big-title">{post.title}</h2>
-                  <p className="journal-big-preview">{post.preview}</p>
-                  <span className="journal-big-cta">Read entry <ArrowUpRight size={16} /></span>
-                </div>
-              </button>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <Footer navigate={navigate} />
-    </>
-  );
-}
-
-// ─── BLOG POST ───────────────────────────────────────────────────────────────
-
-function BlogPostPage({ post, navigate }: { post: BlogPost; navigate: (p: Page) => void }) {
-  const renderContent = (text: string) =>
-    text.split("\n\n").map((para, i) => {
-      const parts = para.split(/(\*\*[^*]+\*\*)/g).map((chunk, j) =>
-        chunk.startsWith("**") && chunk.endsWith("**") ? (
-          <strong key={j}>{chunk.slice(2, -2)}</strong>
-        ) : (
-          chunk
-        )
-      );
-      return <p key={i} className="post-para">{parts}</p>;
-    });
-
-  return (
-    <>
-      <article className="post">
-        <button className="back-link" onClick={() => navigate({ name: "blog" })}>
-          <ArrowLeft size={16} /> Back to journal
-        </button>
-
-        <div className="post-meta">
-          <span>{post.date}</span>
-          <span className="dot">·</span>
-          <span>{post.readTime}</span>
-        </div>
-
-        <h1 className="post-title">{post.title}</h1>
-        <div className="post-divider" />
-
-        <div className="post-body">{renderContent(post.content)}</div>
-
-        <div className="post-cta">
-          <p className="post-cta-text">Like what you see?</p>
-          <button className="btn-primary" onClick={() => navigate({ name: "shop" })}>
-            <span>Browse the collection</span>
-            <ArrowUpRight size={16} />
-          </button>
-        </div>
-      </article>
-
-      <Footer navigate={navigate} />
-    </>
-  );
-}
-
-
 // ─── FOOTER ──────────────────────────────────────────────────────────────────
 
 function Footer({ navigate }: { navigate: (p: Page) => void }) {
@@ -870,7 +675,7 @@ export default function App() {
 
   // Re-mount key to trigger page-enter animation
   const pageKey = `${page.name}-${
-    page.name === "product" ? page.product.id : page.name === "blogpost" ? page.post.id : ""
+    page.name === "product" ? page.product.id : ""
   }`;
 
   return (
@@ -880,8 +685,6 @@ export default function App() {
         {page.name === "landing" && <LandingPage navigate={navigate} />}
         {page.name === "shop" && <ShopPage navigate={navigate} />}
         {page.name === "product" && <ProductDetailPage product={page.product} navigate={navigate} />}
-        {page.name === "blog" && <BlogPage navigate={navigate} />}
-        {page.name === "blogpost" && <BlogPostPage post={page.post} navigate={navigate} />}
       </main>
     </div>
   );
