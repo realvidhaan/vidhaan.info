@@ -104,14 +104,6 @@ const ArrowLeft = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
-const _CartIcon = ({ size = 20 }: { size?: number }) => (
-  <svg {...svgBase(size)}>
-    <circle cx="9" cy="21" r="1" />
-    <circle cx="20" cy="21" r="1" />
-    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-  </svg>
-);
-
 const MenuIcon = ({ size = 22 }: { size?: number }) => (
   <svg {...svgBase(size)}>
     <line x1="3" y1="8" x2="21" y2="8" />
