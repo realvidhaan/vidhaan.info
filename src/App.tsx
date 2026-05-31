@@ -139,28 +139,6 @@ const ScanIcon = ({ size = 16 }: { size?: number }) => (
   </svg>
 );
 
-const LayersIcon = ({ size = 18 }: { size?: number }) => (
-  <svg {...svgBase(size)}>
-    <polygon points="12 2 2 7 12 12 22 7 12 2" />
-    <polyline points="2 17 12 22 22 17" />
-    <polyline points="2 12 12 17 22 12" />
-  </svg>
-);
-
-const BarsIcon = ({ size = 18 }: { size?: number }) => (
-  <svg {...svgBase(size)}>
-    <line x1="18" y1="20" x2="18" y2="10" />
-    <line x1="12" y1="20" x2="12" y2="4" />
-    <line x1="6" y1="20" x2="6" y2="14" />
-  </svg>
-);
-
-const ChatIcon = ({ size = 18 }: { size?: number }) => (
-  <svg {...svgBase(size)}>
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-  </svg>
-);
-
 
 // ─── HOOKS ───────────────────────────────────────────────────────────────────
 
@@ -526,25 +504,7 @@ function ShopPage({ navigate }: { navigate: (p: Page) => void }) {
 
 // ─── PROJECTS PAGE ───────────────────────────────────────────────────────────
 
-const projectFeatures = [
-  {
-    icon: <LayersIcon />,
-    title: "Architecture briefing",
-    desc: "Reads the file tree and key sources, then writes a sharp, plain-English breakdown of how the project is structured.",
-  },
-  {
-    icon: <BarsIcon />,
-    title: "Live language breakdown",
-    desc: "Pulls real GitHub stats: stars, forks, and a colour-coded map of every language in the repo.",
-  },
-  {
-    icon: <ChatIcon />,
-    title: "Code-aware chat",
-    desc: "Ask anything about the codebase and get answers grounded in the actual files. No vague guesses.",
-  },
-];
-
-const repolensStack = ["Next.js", "TypeScript", "Tailwind", "Local AI", "GitHub API"];
+const repolensStack = ["Next.js", "TypeScript", "Tailwind", "Free AI", "GitHub API"];
 
 function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
   const tilt = useTilt();
