@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import type { ReactNode, MouseEvent as ReactMouseEvent } from "react";
 
+// ─── PROJECT LINKS ───────────────────────────────────────────────────────────
+// Swap these two for the live deploy + source when ready.
+const REPOLENS_APP_URL = "https://repolens.vidhaan.info";
+const REPOLENS_REPO_URL = "https://github.com/realvidhaan/repolens";
+
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
 const products = [
@@ -67,6 +72,7 @@ type Product = (typeof products)[0];
 type Page =
   | { name: "landing" }
   | { name: "shop" }
+  | { name: "projects" }
   | { name: "product"; product: Product };
 
 // ─── ICONS ───────────────────────────────────────────────────────────────────
@@ -115,6 +121,44 @@ const XIcon = ({ size = 22 }: { size?: number }) => (
   <svg {...svgBase(size)}>
     <line x1="18" y1="6" x2="6" y2="18" />
     <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
+
+const GithubIcon = ({ size = 16 }: { size?: number }) => (
+  <svg {...svgBase(size)}>
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+  </svg>
+);
+
+const ScanIcon = ({ size = 16 }: { size?: number }) => (
+  <svg {...svgBase(size)}>
+    <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+    <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+    <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+    <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
+const LayersIcon = ({ size = 18 }: { size?: number }) => (
+  <svg {...svgBase(size)}>
+    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+    <polyline points="2 17 12 22 22 17" />
+    <polyline points="2 12 12 17 22 12" />
+  </svg>
+);
+
+const BarsIcon = ({ size = 18 }: { size?: number }) => (
+  <svg {...svgBase(size)}>
+    <line x1="18" y1="20" x2="18" y2="10" />
+    <line x1="12" y1="20" x2="12" y2="4" />
+    <line x1="6" y1="20" x2="6" y2="14" />
+  </svg>
+);
+
+const ChatIcon = ({ size = 18 }: { size?: number }) => (
+  <svg {...svgBase(size)}>
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
   </svg>
 );
 
@@ -212,6 +256,7 @@ function Nav({
   const links: { label: string; page: Page }[] = [
     { label: "Index", page: { name: "landing" } },
     { label: "Shop", page: { name: "shop" } },
+    { label: "Projects", page: { name: "projects" } },
   ];
 
   return (
@@ -504,6 +549,153 @@ function ShopPage({ navigate }: { navigate: (p: Page) => void }) {
   );
 }
 
+// ─── PROJECTS PAGE ───────────────────────────────────────────────────────────
+
+const projectFeatures = [
+  {
+    icon: <LayersIcon />,
+    title: "Architecture briefing",
+    desc: "Reads the file tree and key sources, then writes a sharp, plain-English breakdown of how the project is structured.",
+  },
+  {
+    icon: <BarsIcon />,
+    title: "Live language breakdown",
+    desc: "Pulls real GitHub stats — stars, forks, and a colour-coded map of every language in the repo.",
+  },
+  {
+    icon: <ChatIcon />,
+    title: "Code-aware chat",
+    desc: "Ask anything about the codebase and get answers grounded in the actual files — not vague guesses.",
+  },
+];
+
+const repolensStack = ["Next.js", "TypeScript", "Tailwind", "Local AI", "GitHub API"];
+
+function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
+  const tilt = useTilt();
+
+  return (
+    <>
+      <section className="page-head">
+        <div className="hero-grain" />
+        <Eyebrow>/ Projects — Vol. 01</Eyebrow>
+        <h1 className="page-title">
+          Things I've <em>built.</em>
+        </h1>
+        <p className="page-sub">
+          01 shipped project · Designed &amp; coded end-to-end · Where the art meets the engineering.
+        </p>
+      </section>
+
+      <section className="section section-grid">
+        <Reveal>
+          <article className="project-feature">
+            {/* ── Left: live demo mockup ── */}
+            <div className="project-showcase">
+              <div
+                ref={tilt.ref}
+                onMouseMove={tilt.onMouseMove}
+                onMouseLeave={tilt.onMouseLeave}
+                className="browser-frame"
+              >
+                <div className="browser-bar">
+                  <span className="browser-dot" />
+                  <span className="browser-dot" />
+                  <span className="browser-dot" />
+                  <span className="browser-url">
+                    <ScanIcon size={11} /> repolens.app
+                  </span>
+                </div>
+                <div className="browser-body">
+                  <span className="rl-badge">
+                    <ScanIcon size={11} /> Understand any codebase in 60s
+                  </span>
+                  <h3 className="rl-headline">
+                    See any GitHub repo
+                    <br />
+                    <span className="rl-gradient">through a clear lens</span>
+                  </h3>
+                  <div className="rl-search">
+                    <ScanIcon size={13} />
+                    <span className="rl-search-text">vercel/next.js</span>
+                    <span className="rl-search-btn">Analyze</span>
+                  </div>
+                  <div className="rl-tiles">
+                    <div className="rl-tile rl-tile-wide">
+                      <span className="rl-tile-dot" />
+                      <span className="rl-tile-dot" />
+                      <span className="rl-tile-dot" />
+                    </div>
+                    <div className="rl-tile rl-tile-tall" />
+                    <div className="rl-tile" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Right: project detail ── */}
+            <div className="project-detail">
+              <Eyebrow>AI · Developer Tool</Eyebrow>
+              <h2 className="project-title">
+                Repo<em>Lens</em>
+              </h2>
+              <p className="project-desc">
+                A visual GitHub repository analyzer. Paste any public repo and
+                get an instant architecture briefing, a live language
+                breakdown, and a chat that actually knows the code — powered by
+                AI running locally, so every analysis is free.
+              </p>
+
+              <div className="project-tags">
+                {repolensStack.map((t) => (
+                  <span key={t} className="tag">/ {t}</span>
+                ))}
+              </div>
+
+              <div className="project-actions">
+                <a
+                  className="btn-primary"
+                  href={REPOLENS_APP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>Launch RepoLens</span>
+                  <ArrowUpRight size={16} />
+                </a>
+                <a
+                  className="btn-ghost"
+                  href={REPOLENS_REPO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GithubIcon size={16} /> View source
+                </a>
+              </div>
+            </div>
+          </article>
+        </Reveal>
+
+        {/* ── Capability cards ── */}
+        <div className="project-features">
+          {projectFeatures.map((f, i) => (
+            <Reveal key={f.title} delay={i * 90}>
+              <div className="pfeature">
+                <span className="pfeature-icon">{f.icon}</span>
+                <h3 className="pfeature-title">{f.title}</h3>
+                <p className="pfeature-desc">{f.desc}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <Marquee items={["DESIGNED & BUILT", "AI POWERED", "SHIPPED WITH CARE", "MORE SOON"]} />
+
+      <Footer navigate={navigate} />
+    </>
+  );
+}
+
 // ─── PRODUCT DETAIL ──────────────────────────────────────────────────────────
 
 function ProductDetailPage({ product, navigate }: { product: Product; navigate: (p: Page) => void }) {
@@ -663,6 +855,7 @@ export default function App() {
       <main key={pageKey} className="page-enter">
         {page.name === "landing" && <LandingPage navigate={navigate} />}
         {page.name === "shop" && <ShopPage navigate={navigate} />}
+        {page.name === "projects" && <ProjectsPage navigate={navigate} />}
         {page.name === "product" && <ProductDetailPage product={page.product} navigate={navigate} />}
       </main>
     </div>
