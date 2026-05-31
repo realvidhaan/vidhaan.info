@@ -557,6 +557,14 @@ function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
         <h1 className="page-title">
           Things I've <em>built.</em>
         </h1>
+        <a
+          href="https://github.com/realvidhaan"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="page-github-link"
+        >
+          <GithubIcon size={14} /> github.com/realvidhaan
+        </a>
       </section>
 
       <section className="section section-grid">
@@ -611,6 +619,12 @@ function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
               <h2 className="project-title">
                 Repo<em>Lens</em>
               </h2>
+              <p className="project-desc">
+                A visual GitHub repository analyzer. Paste any public repo and
+                get an instant architecture briefing, a live language
+                breakdown, and a chat that actually knows the code. Powered by
+                free AI with no API keys required.
+              </p>
               <div className="project-tags">
                 {repolensStack.map((t) => (
                   <span key={t} className="tag">/ {t}</span>
@@ -640,18 +654,6 @@ function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
           </article>
         </Reveal>
 
-        {/* ── Capability cards ── */}
-        <div className="project-features">
-          {projectFeatures.map((f, i) => (
-            <Reveal key={f.title} delay={i * 90}>
-              <div className="pfeature">
-                <span className="pfeature-icon">{f.icon}</span>
-                <h3 className="pfeature-title">{f.title}</h3>
-                <p className="pfeature-desc">{f.desc}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
       </section>
 
       <Marquee items={["DESIGNED & BUILT", "AI POWERED", "SHIPPED WITH CARE", "MORE SOON"]} />
