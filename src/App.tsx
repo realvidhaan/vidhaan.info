@@ -401,7 +401,7 @@ function LandingPage({ navigate }: { navigate: (p: Page) => void }) {
       <section className="section">
         <div className="section-head">
           <div>
-            <Eyebrow>/ 02 — Featured</Eyebrow>
+            <Eyebrow>/ 02 Featured</Eyebrow>
             <h2 className="section-title">Latest works,<br /><em>fresh from the studio.</em></h2>
           </div>
           <Reveal>
@@ -419,30 +419,6 @@ function LandingPage({ navigate }: { navigate: (p: Page) => void }) {
               index={i}
               onClick={() => navigate({ name: "product", product: p })}
             />
-          ))}
-        </div>
-      </section>
-
-      {/* PHILOSOPHY STRIP */}
-      <section className="philosophy">
-        <Reveal>
-          <p className="philosophy-text">
-            Each piece is hand-painted, hand-drawn, or hand-illustrated. <em>No prints, no reprints.</em> When you buy something here, you're getting an original — the only one of its kind in the world.
-          </p>
-        </Reveal>
-        <div className="philosophy-stats">
-          {[
-            { num: "05", label: "Original works" },
-            { num: "100%", label: "Hand-made" },
-            { num: "11", label: "Years young" },
-            { num: "∞", label: "Made with love" },
-          ].map((s, i) => (
-            <Reveal key={s.label} delay={i * 80}>
-              <div className="stat">
-                <div className="stat-num">{s.num}</div>
-                <div className="stat-label">{s.label}</div>
-              </div>
-            </Reveal>
           ))}
         </div>
       </section>
@@ -506,12 +482,12 @@ function ShopPage({ navigate }: { navigate: (p: Page) => void }) {
     <>
       <section className="page-head">
         <div className="hero-grain" />
-        <Eyebrow>/ Shop — Vol. 01</Eyebrow>
+        <Eyebrow>/ Shop Vol. 01</Eyebrow>
         <h1 className="page-title">
           The <em>collection.</em>
         </h1>
         <p className="page-sub">
-          {filtered.length.toString().padStart(2, "0")} original works · No prints, no reprints · Each one one-of-a-kind.
+          Original works · No prints, no reprints · Each one one-of-a-kind.
         </p>
 
         <div className="filters">
@@ -559,12 +535,12 @@ const projectFeatures = [
   {
     icon: <BarsIcon />,
     title: "Live language breakdown",
-    desc: "Pulls real GitHub stats — stars, forks, and a colour-coded map of every language in the repo.",
+    desc: "Pulls real GitHub stats: stars, forks, and a colour-coded map of every language in the repo.",
   },
   {
     icon: <ChatIcon />,
     title: "Code-aware chat",
-    desc: "Ask anything about the codebase and get answers grounded in the actual files — not vague guesses.",
+    desc: "Ask anything about the codebase and get answers grounded in the actual files. No vague guesses.",
   },
 ];
 
@@ -577,13 +553,10 @@ function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
     <>
       <section className="page-head">
         <div className="hero-grain" />
-        <Eyebrow>/ Projects — Vol. 01</Eyebrow>
+        <Eyebrow>/ Projects Vol. 01</Eyebrow>
         <h1 className="page-title">
           Things I've <em>built.</em>
         </h1>
-        <p className="page-sub">
-          01 shipped project · Designed &amp; coded end-to-end · Where the art meets the engineering.
-        </p>
       </section>
 
       <section className="section section-grid">
@@ -638,13 +611,6 @@ function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
               <h2 className="project-title">
                 Repo<em>Lens</em>
               </h2>
-              <p className="project-desc">
-                A visual GitHub repository analyzer. Paste any public repo and
-                get an instant architecture briefing, a live language
-                breakdown, and a chat that actually knows the code — powered by
-                AI running locally, so every analysis is free.
-              </p>
-
               <div className="project-tags">
                 {repolensStack.map((t) => (
                   <span key={t} className="tag">/ {t}</span>
@@ -670,9 +636,6 @@ function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
                   <GithubIcon size={16} /> View source
                 </a>
               </div>
-              <p className="project-note">
-                Live &amp; free — no install, no sign-up. Just paste a repo.
-              </p>
             </div>
           </article>
         </Reveal>
