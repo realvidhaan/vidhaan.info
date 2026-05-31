@@ -2,9 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import type { ReactNode, MouseEvent as ReactMouseEvent } from "react";
 
 // ─── PROJECT LINKS ───────────────────────────────────────────────────────────
-// Swap these two for the live deploy + source when ready.
-const REPOLENS_APP_URL = "https://repolens.vidhaan.info";
+// RepoLens runs locally via Ollama (free), so there's no public live demo —
+// both CTAs point at the repo: one to the setup guide, one to the source.
 const REPOLENS_REPO_URL = "https://github.com/realvidhaan/repolens";
+const REPOLENS_SETUP_URL = `${REPOLENS_REPO_URL}#getting-started`;
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
@@ -655,11 +656,11 @@ function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
               <div className="project-actions">
                 <a
                   className="btn-primary"
-                  href={REPOLENS_APP_URL}
+                  href={REPOLENS_SETUP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span>Launch RepoLens</span>
+                  <span>Run it yourself</span>
                   <ArrowUpRight size={16} />
                 </a>
                 <a
@@ -671,6 +672,9 @@ function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
                   <GithubIcon size={16} /> View source
                 </a>
               </div>
+              <p className="project-note">
+                Runs locally with free, on-device AI — no API keys, no cost.
+              </p>
             </div>
           </article>
         </Reveal>

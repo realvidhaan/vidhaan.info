@@ -1602,6 +1602,14 @@ em { font-style: italic; }
 }
 .project-actions .btn-primary,
 .project-actions .btn-ghost { text-decoration: none; }
+.project-note {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 4px 0 0;
+}
 
 /* Capability cards */
 .project-features {
