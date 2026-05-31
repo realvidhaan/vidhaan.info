@@ -63,6 +63,61 @@ const products = [
       "Gold illustration of a hummingbird. Made on blackout paper.",
     tags: ["misc", "bird", "nature"],
   },
+  {
+    id: 6,
+    name: "Strawberry Cow Greeting Card",
+    price: 7,
+    category: "Greeting Card",
+    image: "/strawberry-cow.png",
+    shortDesc: "Adorable strawberry cow marker drawing",
+    fullDesc:
+      "A cheerful little cow with strawberry-red spots, hugging a juicy strawberry. Hand-drawn with bold ink outlines and rich alcohol markers on heavyweight card stock. The inside is completely blank, so you can write your own message for any occasion.",
+    tags: ["greeting card", "animal", "cute"],
+  },
+  {
+    id: 7,
+    name: "Pizza Raccoon Greeting Card",
+    price: 7,
+    category: "Greeting Card",
+    image: "/pizza-raccoon.png",
+    shortDesc: "Chibi raccoon munching a pizza slice",
+    fullDesc:
+      "A rosy-cheeked raccoon happily clutching a pepperoni slice, drawn in punchy ink and marker on heavyweight card stock. Blank on the inside, leaving plenty of room for your own note, joke, or birthday wish.",
+    tags: ["greeting card", "animal", "cute"],
+  },
+  {
+    id: 8,
+    name: "Penguin Greeting Card",
+    price: 7,
+    category: "Greeting Card",
+    image: "/penguin.png",
+    shortDesc: "Cozy penguin in a bear hat",
+    fullDesc:
+      "A bundled-up penguin peeking out from a fuzzy brown bear hat, hand-drawn with crisp outlines and warm markers on heavyweight card stock. Left fully blank inside so you can make it say exactly what you want.",
+    tags: ["greeting card", "animal", "cute"],
+  },
+  {
+    id: 9,
+    name: "Water Lily Greeting Card",
+    price: 7,
+    category: "Greeting Card",
+    image: "/water-lily.png",
+    shortDesc: "Vivid pink water lilies on a pond",
+    fullDesc:
+      "Two blooming pink water lilies floating on lush green pads, rendered in bold ink and layered markers on heavyweight card stock. Completely blank inside, perfect for a personal message on any occasion.",
+    tags: ["greeting card", "floral", "nature"],
+  },
+  {
+    id: 10,
+    name: "Grogu Greeting Card",
+    price: 7,
+    category: "Greeting Card",
+    image: "/grogu.png",
+    shortDesc: "Grogu in his floating pod",
+    fullDesc:
+      "The galaxy's most beloved little green friend, tucked into his hovering pod and hand-drawn with detailed ink linework and markers on heavyweight card stock. The inside is entirely blank, fully customizable for whatever message you'd like to send.",
+    tags: ["greeting card", "Star Wars", "pop culture"],
+  },
 ];
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
