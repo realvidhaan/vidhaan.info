@@ -866,6 +866,13 @@ em { font-style: italic; }
 .card-wrap:hover .card-cta { color: var(--ink); }
 .card-wrap:hover .card-cta svg { transform: rotate(45deg); }
 
+/* ─── BLOG CARD IMAGE (contain, not cover) ─────────────────────── */
+.blog-card-img {
+  object-fit: contain !important;
+  padding: 28px;
+  background: #0c0c0c;
+}
+
 /* ─── SCORE BADGE ───────────────────────────────────────────────── */
 .score-badge {
   display: inline;

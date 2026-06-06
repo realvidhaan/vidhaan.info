@@ -427,7 +427,7 @@ function BlogCard({
         className="card"
       >
         <div className="card-img-wrap">
-          <img src="/acsl-logo.png" alt={post.title} className="card-img" loading="lazy" />
+          <img src="/acsl-logo.png" alt={post.title} className="card-img blog-card-img" loading="lazy" />
           <div className="card-shine" />
           <span className="card-cat">{post.category}</span>
           <span className="card-num">№ {String(index + 1).padStart(2, "0")}</span>
