@@ -803,7 +803,7 @@ function BlogPage({ navigate }: { navigate: (p: Page) => void }) {
         </div>
       </section>
 
-      <Marquee items={["ACSL FINALS", "39 OUT OF 40", "NATIONAL COMPETITION", "CS"]} />
+      <Marquee items={["WRITTEN BY HAND", "COMPETITIONS", "PROJECTS", "REFLECTIONS", "THOUGHTS"]} />
 
       <Footer navigate={navigate} />
     </>
