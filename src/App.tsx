@@ -120,13 +120,30 @@ const products = [
   },
 ];
 
+// ─── BLOG POSTS ──────────────────────────────────────────────────────────────
+
+const blogPosts = [
+  {
+    id: 1,
+    title: "Reflecting on the ACSL Finals",
+    date: "Spring 2025",
+    category: "Competition",
+    preview:
+      "I scored 39 out of 40 at the ACSL Finals this past spring — here's what I took away from it.",
+    body: "The ACSL Finals happened this past spring and I decided to enter. It's a national CS competition. I scored 39 out of 40, which I am very proud of.\n\nThere are two sections. Programming problems first, and those weren't bad at all. Then 20 short-answer logic and theory questions, which were much harder. No half credit, either you know it or you don't. I got 19 right and missed one. That one wrong answer was more useful to think about than the 19 I got right, because I didn't check my work carefully enough on that problem.\n\nAfter the competition, I noticed I was actually checking my logic more carefully when I worked on my own coding projects. The habit just kind of showed up. Going back over a condition before assuming it's right, things like that. I'm sure I picked it up from sitting in that room watching my score and not wanting to drop another point.",
+  },
+];
+
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
 type Product = (typeof products)[0];
+type BlogPost = (typeof blogPosts)[0];
 type Page =
   | { name: "landing" }
   | { name: "shop" }
   | { name: "projects" }
+  | { name: "blog" }
+  | { name: "post"; post: BlogPost }
   | { name: "product"; product: Product };
 
 // ─── ICONS ───────────────────────────────────────────────────────────────────
@@ -289,6 +306,7 @@ function Nav({
     { label: "Index", page: { name: "landing" } },
     { label: "Shop", page: { name: "shop" } },
     { label: "Projects", page: { name: "projects" } },
+    { label: "Blog", page: { name: "blog" } },
   ];
 
   return (
@@ -387,6 +405,49 @@ function ProductCard({
   );
 }
 
+// ─── BLOG CARD ───────────────────────────────────────────────────────────────
+
+function BlogCard({
+  post,
+  onClick,
+  index,
+}: {
+  post: BlogPost;
+  onClick: () => void;
+  index: number;
+}) {
+  const tilt = useTilt();
+  const revealRef = useReveal<HTMLDivElement>();
+  return (
+    <div ref={revealRef} className="card-wrap reveal" onClick={onClick}>
+      <div
+        ref={tilt.ref}
+        onMouseMove={tilt.onMouseMove}
+        onMouseLeave={tilt.onMouseLeave}
+        className="card"
+      >
+        <div className="card-img-wrap blog-card-img">
+          <div className="card-shine" />
+          <span className="card-cat">{post.category}</span>
+          <span className="card-num">№ {String(index + 1).padStart(2, "0")}</span>
+          <div className="blog-card-inner">
+            <h3 className="blog-card-title">{post.title}</h3>
+            <p className="blog-card-excerpt">{post.preview}</p>
+          </div>
+        </div>
+        <div className="card-meta">
+          <div className="card-row">
+            <span className="card-price">{post.date}</span>
+            <span className="card-cta">
+              Read <ArrowUpRight size={14} />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── LANDING ─────────────────────────────────────────────────────────────────
 
 function LandingPage({ navigate }: { navigate: (p: Page) => void }) {
@@ -452,6 +513,45 @@ function LandingPage({ navigate }: { navigate: (p: Page) => void }) {
               index={i}
               onClick={() => navigate({ name: "product", product: p })}
             />
+          ))}
+        </div>
+      </section>
+
+      {/* BLOG TEASER */}
+      <section className="section">
+        <div className="section-head">
+          <div>
+            <Eyebrow>/ 03 Writing</Eyebrow>
+            <h2 className="section-title">From the<br /><em>journal.</em></h2>
+          </div>
+          <Reveal>
+            <button className="btn-ghost" onClick={() => navigate({ name: "blog" })}>
+              All posts <ArrowRight size={14} />
+            </button>
+          </Reveal>
+        </div>
+
+        <div className="journal-list">
+          {blogPosts.map((post, i) => (
+            <Reveal key={post.id}>
+              <button
+                className="journal-row"
+                style={{ width: "100%", background: "none", textAlign: "left" }}
+                onClick={() => navigate({ name: "post", post })}
+              >
+                <span className="journal-num">0{i + 1}</span>
+                <div className="journal-content">
+                  <h3 className="journal-title">{post.title}</h3>
+                  <p className="journal-preview">{post.preview}</p>
+                </div>
+                <div className="journal-meta">
+                  <span>{post.date}</span>
+                  <span className="journal-arrow">
+                    <ArrowUpRight size={14} />
+                  </span>
+                </div>
+              </button>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -678,6 +778,90 @@ function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
   );
 }
 
+// ─── BLOG PAGE ───────────────────────────────────────────────────────────────
+
+function BlogPage({ navigate }: { navigate: (p: Page) => void }) {
+  return (
+    <>
+      <section className="page-head">
+        <div className="hero-grain" />
+        <Eyebrow>/ Blog Vol. 01</Eyebrow>
+        <h1 className="page-title">
+          Things I've <em>written.</em>
+        </h1>
+        <p className="page-sub">Competitions · Reflections · Projects</p>
+      </section>
+
+      <section className="section section-grid">
+        <div className="grid">
+          {blogPosts.map((post, i) => (
+            <BlogCard
+              key={post.id}
+              post={post}
+              index={i}
+              onClick={() => navigate({ name: "post", post })}
+            />
+          ))}
+        </div>
+      </section>
+
+      <Marquee items={["ACSL FINALS", "39 OUT OF 40", "NATIONAL COMPETITION", "CS"]} />
+
+      <Footer navigate={navigate} />
+    </>
+  );
+}
+
+// ─── BLOG POST PAGE ──────────────────────────────────────────────────────────
+
+function renderPostBody(text: string) {
+  const SCORE = "39 out of 40";
+  return text.split("\n\n").map((para, i) => {
+    if (!para.includes(SCORE)) return <p key={i}>{para}</p>;
+    const [before, after] = para.split(SCORE);
+    return (
+      <p key={i}>
+        {before}
+        <span className="score-badge">{SCORE}</span>
+        {after}
+      </p>
+    );
+  });
+}
+
+function BlogPostPage({
+  post,
+  navigate,
+}: {
+  post: BlogPost;
+  navigate: (p: Page) => void;
+}) {
+  return (
+    <>
+      <div className="post">
+        <button className="back-link" onClick={() => navigate({ name: "blog" })}>
+          <ArrowLeft size={16} /> Back to blog
+        </button>
+        <div className="post-meta">
+          <span>{post.date}</span>
+          <span className="dot">/</span>
+          <span>{post.category}</span>
+        </div>
+        <h1 className="post-title">{post.title}</h1>
+        <div className="post-divider" />
+        <div className="post-body">{renderPostBody(post.body)}</div>
+        <div className="post-cta">
+          <p className="post-cta-text">Thanks for reading.</p>
+          <button className="btn-ghost" onClick={() => navigate({ name: "blog" })}>
+            <ArrowLeft size={16} /> All posts
+          </button>
+        </div>
+      </div>
+      <Footer navigate={navigate} />
+    </>
+  );
+}
+
 // ─── PRODUCT DETAIL ──────────────────────────────────────────────────────────
 
 function ProductDetailPage({ product, navigate }: { product: Product; navigate: (p: Page) => void }) {
@@ -838,6 +1022,8 @@ export default function App() {
         {page.name === "landing" && <LandingPage navigate={navigate} />}
         {page.name === "shop" && <ShopPage navigate={navigate} />}
         {page.name === "projects" && <ProjectsPage navigate={navigate} />}
+        {page.name === "blog" && <BlogPage navigate={navigate} />}
+        {page.name === "post" && <BlogPostPage post={page.post} navigate={navigate} />}
         {page.name === "product" && <ProductDetailPage product={page.product} navigate={navigate} />}
       </main>
     </div>

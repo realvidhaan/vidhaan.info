@@ -866,6 +866,51 @@ em { font-style: italic; }
 .card-wrap:hover .card-cta { color: var(--ink); }
 .card-wrap:hover .card-cta svg { transform: rotate(45deg); }
 
+/* ─── BLOG CARD (text variant) ─────────────────────────────────── */
+.blog-card-img {
+  background: var(--ink);
+  display: flex;
+  align-items: flex-end;
+  padding: 22px;
+}
+.blog-card-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.blog-card-title {
+  font-family: var(--serif);
+  font-size: clamp(19px, 2.2vw, 26px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--bg);
+  margin: 0;
+}
+.blog-card-excerpt {
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(239, 233, 220, 0.58);
+  margin: 0;
+}
+
+/* ─── SCORE BADGE ───────────────────────────────────────────────── */
+.score-badge {
+  display: inline;
+  padding: 1px 10px;
+  background: var(--accent);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.88em;
+  font-weight: 600;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
 /* ─── PRODUCT DETAIL ────────────────────────────────────────────── */
 .product-detail {
   max-width: 1400px;
