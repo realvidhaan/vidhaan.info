@@ -426,16 +426,14 @@ function BlogCard({
         onMouseLeave={tilt.onMouseLeave}
         className="card"
       >
-        <div className="card-img-wrap blog-card-img">
+        <div className="card-img-wrap">
+          <img src="/acsl-logo.png" alt={post.title} className="card-img" loading="lazy" />
           <div className="card-shine" />
           <span className="card-cat">{post.category}</span>
           <span className="card-num">№ {String(index + 1).padStart(2, "0")}</span>
-          <div className="blog-card-inner">
-            <h3 className="blog-card-title">{post.title}</h3>
-            <p className="blog-card-excerpt">{post.preview}</p>
-          </div>
         </div>
         <div className="card-meta">
+          <h3 className="card-name">{post.title}</h3>
           <div className="card-row">
             <span className="card-price">{post.date}</span>
             <span className="card-cta">
