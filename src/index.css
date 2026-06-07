@@ -1607,6 +1607,71 @@ em { font-style: italic; }
 }
 .rl-tile-dot:first-child { background: var(--accent); }
 
+/* ─── ALGOFLOW MOCKUP — sorting bars + playback ─────────────────── */
+.af-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 104px;
+  margin-top: 28px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.af-bar {
+  flex: 1;
+  min-width: 0;
+  border-radius: 4px 4px 2px 2px;
+  background: rgba(255, 255, 255, 0.18);
+  transition: height 0.4s cubic-bezier(.2,.65,.25,1), background 0.3s;
+}
+.af-bar-cmp {
+  background: var(--accent);
+  box-shadow: 0 0 14px -2px rgba(196, 255, 61, 0.6);
+}
+.af-bar-done { background: var(--accent-2); }
+.af-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+.af-play {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 11px;
+  padding-left: 2px;
+}
+.af-track {
+  position: relative;
+  flex: 1;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+.af-progress {
+  position: absolute;
+  inset: 0 42% 0 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+}
+.af-step {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+}
+
 /* GitHub profile link under page title */
 .page-github-link {
   display: inline-flex;

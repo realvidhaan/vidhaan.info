@@ -4,6 +4,8 @@ import type { ReactNode, MouseEvent as ReactMouseEvent } from "react";
 // ─── PROJECT LINKS ───────────────────────────────────────────────────────────
 const REPOLENS_LIVE_URL = "https://repolens-two.vercel.app";
 const REPOLENS_REPO_URL = "https://github.com/realvidhaan/repolens";
+const ALGOFLOW_LIVE_URL = "https://algoflow-seven.vercel.app/";
+const ALGOFLOW_REPO_URL = "https://github.com/realvidhaan/algoflow";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
@@ -208,6 +210,14 @@ const ScanIcon = ({ size = 16 }: { size?: number }) => (
     <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
     <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
     <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
+const BarsIcon = ({ size = 16 }: { size?: number }) => (
+  <svg {...svgBase(size)}>
+    <line x1="6" y1="20" x2="6" y2="13" />
+    <line x1="12" y1="20" x2="12" y2="4" />
+    <line x1="18" y1="20" x2="18" y2="9" />
   </svg>
 );
 
@@ -658,9 +668,28 @@ function ShopPage({ navigate }: { navigate: (p: Page) => void }) {
 // ─── PROJECTS PAGE ───────────────────────────────────────────────────────────
 
 const repolensStack = ["Next.js", "TypeScript", "Tailwind", "Free AI", "GitHub API"];
+const algoflowStack = ["React", "Vite", "Tailwind", "Algorithms", "Vercel"];
+
+// A mid-sort snapshot for the AlgoFlow preview bars. `state` mirrors the real
+// visualizer palette: comparing (bright accent), sorted (deep accent), idle.
+const algoflowBars: { h: number; state?: "cmp" | "done" }[] = [
+  { h: 34, state: "done" },
+  { h: 48, state: "done" },
+  { h: 62, state: "done" },
+  { h: 90, state: "cmp" },
+  { h: 44 },
+  { h: 72, state: "cmp" },
+  { h: 30 },
+  { h: 84 },
+  { h: 52 },
+  { h: 66 },
+  { h: 38 },
+  { h: 58 },
+];
 
 function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
   const tilt = useTilt();
+  const tiltAlgo = useTilt();
 
   return (
     <>
@@ -681,6 +710,94 @@ function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
       </section>
 
       <section className="section section-grid">
+        <Reveal>
+          <article className="project-feature">
+            {/* ── Left: live demo mockup ── */}
+            <div className="project-showcase">
+              <div
+                ref={tiltAlgo.ref}
+                onMouseMove={tiltAlgo.onMouseMove}
+                onMouseLeave={tiltAlgo.onMouseLeave}
+                className="browser-frame"
+              >
+                <div className="browser-bar">
+                  <span className="browser-dot" />
+                  <span className="browser-dot" />
+                  <span className="browser-dot" />
+                  <span className="browser-url">
+                    <BarsIcon size={11} /> algoflow.app
+                  </span>
+                </div>
+                <div className="browser-body">
+                  <span className="rl-badge">
+                    <BarsIcon size={11} /> Watch any algorithm run, step by step
+                  </span>
+                  <h3 className="rl-headline">
+                    Sorting, visualized
+                    <br />
+                    <span className="rl-gradient">one frame at a time</span>
+                  </h3>
+                  <div className="af-bars">
+                    {algoflowBars.map((bar, i) => (
+                      <span
+                        key={i}
+                        className={`af-bar${bar.state ? ` af-bar-${bar.state}` : ""}`}
+                        style={{ height: `${bar.h}%` }}
+                      />
+                    ))}
+                  </div>
+                  <div className="af-controls">
+                    <span className="af-play">▶</span>
+                    <span className="af-track">
+                      <span className="af-progress" />
+                    </span>
+                    <span className="af-step">Step 18 / 31</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Right: project detail ── */}
+            <div className="project-detail">
+              <Eyebrow>AI · Algorithm Visualizer</Eyebrow>
+              <h2 className="project-title">
+                Algo<em>Flow</em>
+              </h2>
+              <p className="project-desc">
+                An interactive algorithm visualizer and builder. Create, test,
+                and optimize algorithmic workflows with real-time visual
+                debugging, data structure tracking, and AI-powered optimization
+                insights.
+              </p>
+              <div className="project-tags">
+                {algoflowStack.map((t) => (
+                  <span key={t} className="tag">/ {t}</span>
+                ))}
+              </div>
+
+              <div className="project-actions">
+                <a
+                  className="btn-primary"
+                  href={ALGOFLOW_LIVE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>Try the live demo</span>
+                  <ArrowUpRight size={16} />
+                </a>
+                <a
+                  className="btn-ghost"
+                  href={ALGOFLOW_REPO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GithubIcon size={16} /> View source
+                </a>
+              </div>
+            </div>
+          </article>
+        </Reveal>
+
         <Reveal>
           <article className="project-feature">
             {/* ── Left: live demo mockup ── */}
