@@ -814,16 +814,45 @@ function BlogPage({ navigate }: { navigate: (p: Page) => void }) {
 
 function renderPostBody(text: string) {
   const SCORE = "39 out of 40";
+  const ACSL = "ACSL Finals";
   return text.split("\n\n").map((para, i) => {
-    if (!para.includes(SCORE)) return <p key={i}>{para}</p>;
-    const [before, after] = para.split(SCORE);
-    return (
-      <p key={i}>
-        {before}
-        <span className="score-badge">{SCORE}</span>
-        {after}
-      </p>
-    );
+    // Split on both special tokens
+    const parts: React.ReactNode[] = [];
+    let remaining = para;
+    let key = 0;
+
+    while (remaining.length > 0) {
+      const scoreIdx = remaining.indexOf(SCORE);
+      const acslIdx = remaining.indexOf(ACSL);
+
+      // Find the earliest match
+      const firstIdx =
+        scoreIdx === -1 ? acslIdx :
+        acslIdx === -1 ? scoreIdx :
+        Math.min(scoreIdx, acslIdx);
+
+      if (firstIdx === -1) {
+        parts.push(remaining);
+        break;
+      }
+
+      // Push text before match
+      if (firstIdx > 0) parts.push(remaining.slice(0, firstIdx));
+
+      if (firstIdx === scoreIdx) {
+        parts.push(<span key={key++} className="score-badge">{SCORE}</span>);
+        remaining = remaining.slice(firstIdx + SCORE.length);
+      } else {
+        parts.push(
+          <a key={key++} href="https://www.acsl.org" target="_blank" rel="noopener noreferrer" className="post-link">
+            {ACSL}
+          </a>
+        );
+        remaining = remaining.slice(firstIdx + ACSL.length);
+      }
+    }
+
+    return <p key={i}>{parts}</p>;
   });
 }
 
