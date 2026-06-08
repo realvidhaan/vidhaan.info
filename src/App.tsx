@@ -6,6 +6,8 @@ const REPOLENS_LIVE_URL = "https://repolens-two.vercel.app";
 const REPOLENS_REPO_URL = "https://github.com/realvidhaan/repolens";
 const ALGOFLOW_LIVE_URL = "https://algoflow-seven.vercel.app/";
 const ALGOFLOW_REPO_URL = "https://github.com/realvidhaan/algoflow";
+const HAPPYBELLY_LIVE_URL = "https://happybelly-ai.vercel.app/";
+const HAPPYBELLY_REPO_URL = "https://github.com/realvidhaan/happybelly-ai";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
@@ -218,6 +220,13 @@ const BarsIcon = ({ size = 16 }: { size?: number }) => (
     <line x1="6" y1="20" x2="6" y2="13" />
     <line x1="12" y1="20" x2="12" y2="4" />
     <line x1="18" y1="20" x2="18" y2="9" />
+  </svg>
+);
+
+const LeafIcon = ({ size = 16 }: { size?: number }) => (
+  <svg {...svgBase(size)}>
+    <path d="M11 20A7 7 0 0 1 4 13C4 7 9 3 20 4c0 11-5 16-9 16Z" />
+    <path d="M5 21c3-6 7-8 12-9" />
   </svg>
 );
 
@@ -669,6 +678,14 @@ function ShopPage({ navigate }: { navigate: (p: Page) => void }) {
 
 const repolensStack = ["Next.js", "TypeScript", "Tailwind", "Free AI", "GitHub API"];
 const algoflowStack = ["React", "Vite", "Tailwind", "Algorithms", "Vercel"];
+const happybellyStack = ["Next.js", "TypeScript", "Tailwind", "Groq API", "Llama 3", "Vercel"];
+
+// Macro rows for the HappyBelly preview — mirrors the real app's protein/carb/fat colors.
+const happybellyMacros = [
+  { label: "Protein", val: "138 / 165 g", pct: 84, color: "#fb7185" },
+  { label: "Carbs", val: "196 / 240 g", pct: 82, color: "#38bdf8" },
+  { label: "Fats", val: "58 / 73 g", pct: 79, color: "#a78bfa" },
+];
 
 // A mid-sort snapshot for the AlgoFlow preview bars. `state` mirrors the real
 // visualizer palette: comparing (bright accent), sorted (deep accent), idle.
@@ -690,6 +707,7 @@ const algoflowBars: { h: number; state?: "cmp" | "done" }[] = [
 function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
   const tilt = useTilt();
   const tiltAlgo = useTilt();
+  const tiltHappy = useTilt();
 
   return (
     <>
@@ -710,6 +728,110 @@ function ProjectsPage({ navigate }: { navigate: (p: Page) => void }) {
       </section>
 
       <section className="section section-grid">
+        <Reveal>
+          <article className="project-feature">
+            {/* ── Left: live demo mockup ── */}
+            <div className="project-showcase">
+              <div
+                ref={tiltHappy.ref}
+                onMouseMove={tiltHappy.onMouseMove}
+                onMouseLeave={tiltHappy.onMouseLeave}
+                className="browser-frame"
+              >
+                <div className="browser-bar">
+                  <span className="browser-dot" />
+                  <span className="browser-dot" />
+                  <span className="browser-dot" />
+                  <span className="browser-url">
+                    <LeafIcon size={11} /> happybelly.app
+                  </span>
+                </div>
+                <div className="browser-body">
+                  <span className="rl-badge">
+                    <LeafIcon size={11} /> Log a meal in plain English or a photo
+                  </span>
+                  <h3 className="rl-headline">
+                    Track macros,
+                    <br />
+                    <span className="rl-gradient">gamified</span>
+                  </h3>
+                  <div className="hb-stats">
+                    <div className="hb-ring">
+                      <div className="hb-ring-inner">
+                        <span className="hb-ring-val">1,840</span>
+                        <span className="hb-ring-target">/ 2,200 kcal</span>
+                      </div>
+                    </div>
+                    <div className="hb-macros">
+                      {happybellyMacros.map((m) => (
+                        <div className="hb-macro" key={m.label}>
+                          <div className="hb-macro-top">
+                            <span>{m.label}</span>
+                            <span>{m.val}</span>
+                          </div>
+                          <div className="hb-macro-track">
+                            <span
+                              className="hb-macro-fill"
+                              style={{ width: `${m.pct}%`, background: m.color }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="hb-xp">
+                    <span className="hb-xp-badge">★ LV 3</span>
+                    <span className="hb-xp-track">
+                      <span className="hb-xp-fill" />
+                    </span>
+                    <span className="hb-xp-num">142 XP</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Right: project detail ── */}
+            <div className="project-detail">
+              <Eyebrow>Health · AI Tool</Eyebrow>
+              <h2 className="project-title">
+                HappyBelly <em>AI</em>
+              </h2>
+              <p className="project-desc">
+                A gamified, AI-first calorie and macronutrient tracking web
+                application. Ditch tedious database logging—HappyBelly parses
+                meals from plain English phrases and computer vision photo
+                uploads, utilizing Llama models running on ultra-fast Groq chips
+                with a self-correcting feedback loop.
+              </p>
+              <div className="project-tags">
+                {happybellyStack.map((t) => (
+                  <span key={t} className="tag">/ {t}</span>
+                ))}
+              </div>
+
+              <div className="project-actions">
+                <a
+                  className="btn-primary"
+                  href={HAPPYBELLY_LIVE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>Try the live demo</span>
+                  <ArrowUpRight size={16} />
+                </a>
+                <a
+                  className="btn-ghost"
+                  href={HAPPYBELLY_REPO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GithubIcon size={16} /> View source
+                </a>
+              </div>
+            </div>
+          </article>
+        </Reveal>
+
         <Reveal>
           <article className="project-feature">
             {/* ── Left: live demo mockup ── */}

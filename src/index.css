@@ -1672,6 +1672,108 @@ em { font-style: italic; }
   white-space: nowrap;
 }
 
+/* ─── HAPPYBELLY MOCKUP — calorie ring + macros + XP ─────────────── */
+.hb-stats {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 28px;
+  padding: 18px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.hb-ring {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: conic-gradient(#c4ff3d 0% 82%, rgba(255, 255, 255, 0.1) 82% 100%);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 22px -6px rgba(196, 255, 61, 0.5);
+}
+.hb-ring::before {
+  content: "";
+  position: absolute;
+  inset: 11px;
+  border-radius: 999px;
+  background: var(--bg-deep);
+}
+.hb-ring-inner { position: relative; text-align: center; line-height: 1; }
+.hb-ring-val {
+  font-family: var(--sans);
+  font-size: 21px;
+  font-weight: 800;
+  color: #f4f1e8;
+}
+.hb-ring-target {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.5);
+}
+.hb-macros { flex: 1; display: flex; flex-direction: column; gap: 11px; }
+.hb-macro { display: grid; gap: 5px; }
+.hb-macro-top {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.66);
+}
+.hb-macro-track {
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.hb-macro-fill { height: 100%; border-radius: 999px; }
+.hb-xp {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+.hb-xp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffd83d, #ffc107);
+  color: #2a2200;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 800;
+}
+.hb-xp-track {
+  position: relative;
+  flex: 1;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.hb-xp-fill {
+  position: absolute;
+  inset: 0 38% 0 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffd83d, #ffc107);
+}
+.hb-xp-num {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
 /* GitHub profile link under page title */
 .page-github-link {
   display: inline-flex;
